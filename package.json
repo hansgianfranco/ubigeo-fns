@@ -1,0 +1,80 @@
+{
+  "name": "ubigeo-fns",
+  "version": "1.0.0",
+  "description": "Funciones utilitarias para trabajar con ubigeos del Perú en JavaScript y TypeScript.",
+  "keywords": [
+    "ubigeo",
+    "peru",
+    "geografia",
+    "ubigeo peru",
+    "typescript",
+    "javascript",
+    "utils",
+    "fns"
+  ],
+  "homepage": "https://github.com/hansgianfranco/ubigeo-fns",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hansgianfranco/ubigeo-fns.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hansgianfranco/ubigeo-fns/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Franco Caballero",
+    "email": "hansgianfranco@gmail.com",
+    "url": "https://francocaballero.dev"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./getDistrict": {
+      "import": "./dist/getDistrict/index.js",
+      "types": "./dist/getDistrict/index.d.ts"
+    },
+    "./getProvince": {
+      "import": "./dist/getProvince/index.js",
+      "types": "./dist/getProvince/index.d.ts"
+    },
+    "./getDepartment": {
+      "import": "./dist/getDepartment/index.js",
+      "types": "./dist/getDepartment/index.d.ts"
+    },
+    "./validateUbigeo": {
+      "import": "./dist/validateUbigeo/index.js",
+      "types": "./dist/validateUbigeo/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --minify",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build",
+    "test": "node test.js",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.57.1",
+    "@typescript-eslint/parser": "^8.57.1",
+    "eslint": "^9.39.4",
+    "tsup": "^8.5.1",
+    "typescript": "^5.0.0"
+  }
+}
