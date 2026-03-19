@@ -4,6 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Downloads](https://img.shields.io/npm/dt/ubigeo-fns)](https://www.npmjs.com/package/ubigeo-fns)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/ubigeo-fns)
+![Security](https://img.shields.io/badge/security-policy-blue)
 
 **Funciones utilitarias para trabajar con ubigeos del Perú en JavaScript y TypeScript.**
 Permite obtener distrito, provincia y departamento, validar códigos UBIGEO y trabajar con información geográfica completa (coordenadas, población, área) de manera sencilla.
@@ -47,6 +48,9 @@ import {
   getDistrict,
   getProvince,
   getDepartment,
+  getDepartments,
+  getProvinces,
+  getDistricts
   validateUbigeo,
   getUbigeoData,
   parseUbigeo,
@@ -62,6 +66,10 @@ const ubigeo = "150131";
 getDepartment(ubigeo); // Lima
 getProvince(ubigeo);   // Lima
 getDistrict(ubigeo);   // San Isidro
+
+getDepartments(); // [{ code: "15", name: "Lima" }, ...]
+getProvinces("15"); // [{ code: "1501", name: "Lima" }, ...]
+getDistricts("1501"); // [{ code: "150131", name: "San Isidro" }, ...]
 
 // Validación
 validateUbigeo(ubigeo); // true
@@ -102,9 +110,12 @@ interface UbigeoData {
 
 | Función               | Descripción                                | Parámetros                                   | Retorno              |
 | --------------------- | ------------------------------------------ | -------------------------------------------- | -------------------- |
-| `getDistrict()`       | Devuelve el nombre del distrito            | `ubigeo: string`                             | `string`             |
-| `getProvince()`       | Devuelve el nombre de la provincia         | `ubigeo: string`                             | `string`             |
 | `getDepartment()`     | Devuelve el nombre del departamento        | `ubigeo: string`                             | `string`             |
+| `getProvince()`       | Devuelve el nombre de la provincia         | `ubigeo: string`                             | `string`             |
+| `getDistrict()`       | Devuelve el nombre del distrito            | `ubigeo: string`                             | `string`             |
+| `getDepartments()`   | Lista todos los departamentos             | -             | `{ code, name }[]` |
+| `getProvinces()`     | Lista provincias por departamento         | `code: string`| `{ code, name }[]` |
+| `getDistricts()`     | Lista distritos por provincia             | `code: string`| `{ code, name }[]` |
 | `validateUbigeo()`    | Valida si el UBIGEO existe                 | `ubigeo: string`                             | `boolean`            |
 | `getUbigeoData()`     | Devuelve toda la información del ubigeo    | `ubigeo: string`                             | `UbigeoData \| null` |
 | `parseUbigeo()`       | Separa el ubigeo en códigos jerárquicos    | `ubigeo: string`                             | `object \| null`     |
@@ -112,7 +123,6 @@ interface UbigeoData {
 | `isValidDepartment()` | Valida si el código de departamento existe | `code: string`                               | `boolean`            |
 | `isValidProvince()`   | Valida si el código de provincia existe    | `code: string`                               | `boolean`            |
 | `isValidDistrict()`   | Valida si el código de distrito existe     | `code: string`                               | `boolean`            |
-
 
 ## ⚙️ Minificación y Build
 
@@ -129,6 +139,19 @@ npm run build
 
 ## 📦 Changelog
 
+### v1.2.0
+
+✨ Nuevas funciones:
+- getDepartments
+- getProvinces
+- getDistricts
+
+⚡ Mejora:
+- Acceso jerárquico optimizado con Map (O(1))
+- Ideal para formularios y selects dependientes
+
+---
+
 ### v1.1.0
 
 ✨ Nuevas funciones:
@@ -141,6 +164,25 @@ npm run build
 
 ⚡ Mejora:
 - Validaciones optimizadas usando Set (O(1))
+
+---
+
+### v1.0.0
+
+🎉 Lanzamiento inicial
+
+✨ Funciones:
+- getDistrict
+- getProvince
+- getDepartment
+- validateUbigeo
+
+⚙️ Características:
+- Compatible con JavaScript y TypeScript
+- Soporte para ES Modules (ESM)
+- Tipado incluido (.d.ts)
+- Optimizado para Node.js y bundlers
+- Soporta tree-shaking
 
 
 ## 📝 Licencia

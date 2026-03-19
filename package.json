@@ -1,6 +1,6 @@
 {
   "name": "ubigeo-fns",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Funciones utilitarias para trabajar con ubigeos del Perú en JavaScript y TypeScript.",
   "keywords": [
     "ubigeo",
@@ -57,6 +57,18 @@
     "./getDepartment": {
       "import": "./dist/getDepartment/index.js",
       "types": "./dist/getDepartment/index.d.ts"
+    },
+      "./getDepartments": {
+      "import": "./dist/getDepartments/index.js",
+      "types": "./dist/getDepartments/index.d.ts"
+    },
+    "./getProvinces": {
+      "import": "./dist/getProvinces/index.js",
+      "types": "./dist/getProvinces/index.d.ts"
+    },
+    "./getDistricts": {
+      "import": "./dist/getDistricts/index.js",
+      "types": "./dist/getDistricts/index.d.ts"
     },
     "./getUbigeoData": {
       "import": "./dist/getUbigeoData/index.js",
