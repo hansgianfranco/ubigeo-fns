@@ -1,14 +1,18 @@
 {
   "name": "ubigeo-fns",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Funciones utilitarias para trabajar con ubigeos del Perú en JavaScript y TypeScript.",
   "keywords": [
     "ubigeo",
     "peru",
-    "geografia",
     "ubigeo peru",
-    "typescript",
+    "inei",
+    "sunat",
+    "geografia",
+    "geo",
+    "location",
     "javascript",
+    "typescript",
     "utils",
     "fns"
   ],
@@ -54,9 +58,21 @@
       "import": "./dist/getDepartment/index.js",
       "types": "./dist/getDepartment/index.d.ts"
     },
-    "./validateUbigeo": {
-      "import": "./dist/validateUbigeo/index.js",
-      "types": "./dist/validateUbigeo/index.d.ts"
+    "./getUbigeoData": {
+      "import": "./dist/getUbigeoData/index.js",
+      "types": "./dist/getUbigeoData/index.d.ts"
+    },
+    "./parseUbigeo": {
+      "import": "./dist/parseUbigeo/index.js",
+      "types": "./dist/parseUbigeo/index.d.ts"
+    },
+    "./formatUbigeo": {
+      "import": "./dist/formatUbigeo/index.js",
+      "types": "./dist/formatUbigeo/index.d.ts"
+    },
+    "./validators": {
+      "import": "./dist/validators/index.js",
+      "types": "./dist/validators/index.d.ts"
     }
   },
   "files": [

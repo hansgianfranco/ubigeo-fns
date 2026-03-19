@@ -1,4 +1,4 @@
-import { data } from "../data/ubigeo.js";
+import { data } from "../data/ubigeo";
 
 export function getDepartment(ubigeo: string): string | null {
   const item = data.find((d) => d.ubigeo === ubigeo);

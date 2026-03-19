@@ -1,6 +1,10 @@
-export interface UbigeoItem {
+export interface UbigeoData {
   ubigeo: string;
-  department: string;
-  province: string;
   district: string;
+  province: string;
+  department: string;
+  population: string;
+  area: string;
+  lat: string;
+  lng: string;
 }
