@@ -3,8 +3,8 @@ export interface UbigeoData {
   district: string;
   province: string;
   department: string;
-  population: string;
-  area: string;
-  lat: string;
-  lng: string;
+  population: number;
+  area: number;
+  lat: number;
+  lng: number;
 }

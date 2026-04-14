@@ -1,9 +1,12 @@
-export function parseUbigeo(ubigeo: string) {
-  if (!/^\d{6}$/.test(ubigeo)) return null;
+import { safeUbigeo6 } from "../internal/safeCode";
+
+export function parseUbigeo(ubigeo: unknown) {
+  const code = safeUbigeo6(ubigeo);
+  if (!code) return null;
 
   return {
-    departmentCode: ubigeo.slice(0, 2),
-    provinceCode: ubigeo.slice(0, 4),
-    districtCode: ubigeo.slice(0, 6),
+    departmentCode: code.slice(0, 2),
+    provinceCode: code.slice(0, 4),
+    districtCode: code
   };
 }

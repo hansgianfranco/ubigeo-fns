@@ -1,6 +1,9 @@
-import { data } from "../data/ubigeo";
+import { ubigeoMap } from "../internal/indexes";
+import { safeUbigeo6 } from "../internal/safeCode";
 
-export function getDistrict(ubigeo: string): string | null {
-  const item = data.find((d) => d.ubigeo === ubigeo);
-  return item ? item.district : null;
+export function getDistrict(ubigeo: unknown): string | null {
+  const code = safeUbigeo6(ubigeo);
+  if (!code) return null;
+
+  return ubigeoMap.get(code)?.district ?? null;
 }

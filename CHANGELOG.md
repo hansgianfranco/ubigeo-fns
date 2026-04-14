@@ -7,31 +7,55 @@ and this project follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [2.0.0] - 2026-04-13
+
+### ✨ Added
+- `searchByName` function for searching ubigeos by district, province, or department name
+- Case-insensitive search support
+- Support for user-friendly text queries focused on Peru geography
+
+### ⚡ Improved
+- Migrated internal lookups from `Array.find()` to `Map` and `Set` (O(1) performance)
+- Standardized input normalization across all public functions
+- Improved robustness for edge cases (null, undefined, empty strings, invalid formats)
+- Consistent validation behavior across all APIs
+
+### 🧪 Testing
+- Expanded test coverage with Node.js native test runner
+- Added edge-case validation:
+  - null and undefined inputs
+  - whitespace and malformed strings
+  - invalid and overflow UBIGEO codes
+  - non-string inputs (number, array, object)
+- Improved reliability of validation and parsing logic
+
+---
+
 ## [1.2.0] - 2026-03-19
 
 ### ✨ Added
-- getDepartments
-- getProvinces
-- getDistricts
+- `getDepartments`
+- `getProvinces`
+- `getDistricts`
 
 ### ⚡ Improved
-- Optimized hierarchical lookups using Map (O(1))
-- Better performance for forms and dependent selects
+- Optimized hierarchical lookups using `Map` (O(1))
+- Better performance for form-dependent selects
 
 ---
 
 ## [1.1.0] - 2026-03-18
 
 ### ✨ Added
-- getUbigeoData
-- parseUbigeo
-- formatUbigeo
-- isValidDepartment
-- isValidProvince
-- isValidDistrict
+- `getUbigeoData`
+- `parseUbigeo`
+- `formatUbigeo`
+- `isValidDepartment`
+- `isValidProvince`
+- `isValidDistrict`
 
 ### ⚡ Improved
-- Validation performance optimized using Set (O(1))
+- Validation performance optimized using `Set` (O(1))
 
 ---
 
@@ -40,10 +64,10 @@ and this project follows [Semantic Versioning](https://semver.org/).
 ### 🎉 Initial Release
 
 ### ✨ Added
-- getDistrict
-- getProvince
-- getDepartment
-- validateUbigeo
+- `getDistrict`
+- `getProvince`
+- `getDepartment`
+- `validateUbigeo`
 
 ### ⚙️ Features
 - JavaScript and TypeScript support

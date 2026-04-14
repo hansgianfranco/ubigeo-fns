@@ -1,4 +1,11 @@
 import { data } from "../data/ubigeo";
+import { UbigeoData } from "../types";
+
+const ubigeoMap = new Map<string, UbigeoData>();
+
+const departmentSet = new Set<string>();
+const provinceSet = new Set<string>();
+const districtSet = new Set<string>();
 
 const departmentsMap = new Map<string, string>();
 const provincesMap = new Map<string, Map<string, string>>();
@@ -9,6 +16,12 @@ for (const item of data) {
   const provCode = item.ubigeo.slice(0, 4);
   const distCode = item.ubigeo;
 
+  ubigeoMap.set(distCode, item);
+
+  departmentSet.add(depCode);
+  provinceSet.add(provCode);
+  districtSet.add(distCode);
+
   if (!departmentsMap.has(depCode)) {
     departmentsMap.set(depCode, item.department);
   }
@@ -16,18 +29,25 @@ for (const item of data) {
   if (!provincesMap.has(depCode)) {
     provincesMap.set(depCode, new Map());
   }
-  const provMap = provincesMap.get(depCode)!;
-  if (!provMap.has(provCode)) {
-    provMap.set(provCode, item.province);
-  }
+
+  provincesMap.get(depCode)!.set(provCode, item.province);
 
   if (!districtsMap.has(provCode)) {
     districtsMap.set(provCode, []);
   }
+
   districtsMap.get(provCode)!.push({
     code: distCode,
     name: item.district,
   });
 }
 
-export { departmentsMap, provincesMap, districtsMap };
+export {
+  ubigeoMap,
+  departmentSet,
+  provinceSet,
+  districtSet,
+  departmentsMap,
+  provincesMap,
+  districtsMap
+};

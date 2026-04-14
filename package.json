@@ -1,6 +1,6 @@
 {
   "name": "ubigeo-fns",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "Funciones utilitarias para trabajar con ubigeos del Perú en JavaScript y TypeScript.",
   "keywords": [
     "ubigeo",
@@ -19,7 +19,7 @@
   "homepage": "https://github.com/hansgianfranco/ubigeo-fns",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hansgianfranco/ubigeo-fns.git"
+    "url": "git+https://github.com/hansgianfranco/ubigeo-fns.git"
   },
   "bugs": {
     "url": "https://github.com/hansgianfranco/ubigeo-fns/issues"
@@ -27,12 +27,11 @@
   "license": "MIT",
   "author": {
     "name": "Franco Caballero",
-    "email": "hansgianfranco@gmail.com",
+    "email": "hansgianfranco@users.noreply.github.com",
     "url": "https://francocaballero.dev"
   },
   "type": "module",
   "main": "./dist/index.js",
-  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "engines": {
@@ -43,48 +42,48 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     },
     "./getDistrict": {
-      "import": "./dist/getDistrict/index.js",
-      "types": "./dist/getDistrict/index.d.ts"
+      "types": "./dist/getDistrict/index.d.ts",
+      "import": "./dist/getDistrict/index.js"
     },
     "./getProvince": {
-      "import": "./dist/getProvince/index.js",
-      "types": "./dist/getProvince/index.d.ts"
+      "types": "./dist/getProvince/index.d.ts",
+      "import": "./dist/getProvince/index.js"
     },
     "./getDepartment": {
-      "import": "./dist/getDepartment/index.js",
-      "types": "./dist/getDepartment/index.d.ts"
+      "types": "./dist/getDepartment/index.d.ts",
+      "import": "./dist/getDepartment/index.js"
     },
-      "./getDepartments": {
-      "import": "./dist/getDepartments/index.js",
-      "types": "./dist/getDepartments/index.d.ts"
+    "./getDepartments": {
+      "types": "./dist/getDepartments/index.d.ts",
+      "import": "./dist/getDepartments/index.js"
     },
     "./getProvinces": {
-      "import": "./dist/getProvinces/index.js",
-      "types": "./dist/getProvinces/index.d.ts"
+      "types": "./dist/getProvinces/index.d.ts",
+      "import": "./dist/getProvinces/index.js"
     },
     "./getDistricts": {
-      "import": "./dist/getDistricts/index.js",
-      "types": "./dist/getDistricts/index.d.ts"
+      "types": "./dist/getDistricts/index.d.ts",
+      "import": "./dist/getDistricts/index.js"
     },
     "./getUbigeoData": {
-      "import": "./dist/getUbigeoData/index.js",
-      "types": "./dist/getUbigeoData/index.d.ts"
+      "types": "./dist/getUbigeoData/index.d.ts",
+      "import": "./dist/getUbigeoData/index.js"
     },
     "./parseUbigeo": {
-      "import": "./dist/parseUbigeo/index.js",
-      "types": "./dist/parseUbigeo/index.d.ts"
+      "types": "./dist/parseUbigeo/index.d.ts",
+      "import": "./dist/parseUbigeo/index.js"
     },
     "./formatUbigeo": {
-      "import": "./dist/formatUbigeo/index.js",
-      "types": "./dist/formatUbigeo/index.d.ts"
+      "types": "./dist/formatUbigeo/index.d.ts",
+      "import": "./dist/formatUbigeo/index.js"
     },
     "./validators": {
-      "import": "./dist/validators/index.js",
-      "types": "./dist/validators/index.d.ts"
+      "types": "./dist/validators/index.d.ts",
+      "import": "./dist/validators/index.js"
     }
   },
   "files": [
@@ -93,10 +92,11 @@
   "scripts": {
     "build": "tsup src/index.ts --format esm --dts --minify",
     "dev": "tsc --watch",
-    "prepublishOnly": "npm run build",
-    "test": "node test.js",
+    "test": "node --test",
+    "test:watch": "node --test --watch",
     "lint": "eslint src --ext .ts",
-    "lint:fix": "eslint src --ext .ts --fix"
+    "lint:fix": "eslint src --ext .ts --fix",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.57.1",

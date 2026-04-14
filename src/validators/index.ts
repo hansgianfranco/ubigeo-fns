@@ -1,24 +1,26 @@
-import { data } from "../data/ubigeo";
+import { departmentSet, provinceSet, districtSet } from "../internal/indexes";
+import { safeUbigeo2, safeUbigeo4, safeUbigeo6 } from "../internal/safeCode";
 
-const districtSet = new Set(data.map(d => d.ubigeo));
-const provinceSet = new Set(data.map(d => d.ubigeo.slice(0, 4)));
-const departmentSet = new Set(data.map(d => d.ubigeo.slice(0, 2)));
-
-export function validateUbigeo(code: string): boolean {
-  return districtSet.has(code);
+export function validateUbigeo(code: unknown): boolean {
+  const c = safeUbigeo6(code);
+  if (!c) return false;
+  return districtSet.has(c);
 }
 
-export function isValidDepartment(code: string): boolean {
-  if (!/^\d{2}$/.test(code)) return false;
-  return departmentSet.has(code);
+export function isValidDepartment(code: unknown): boolean {
+  const c = safeUbigeo2(code);
+  if (!c) return false;
+  return departmentSet.has(c);
 }
 
-export function isValidProvince(code: string): boolean {
-  if (!/^\d{4}$/.test(code)) return false;
-  return provinceSet.has(code);
+export function isValidProvince(code: unknown): boolean {
+  const c = safeUbigeo4(code);
+  if (!c) return false;
+  return provinceSet.has(c);
 }
 
-export function isValidDistrict(code: string): boolean {
-  if (!/^\d{6}$/.test(code)) return false;
-  return districtSet.has(code);
+export function isValidDistrict(code: unknown): boolean {
+  const c = safeUbigeo6(code);
+  if (!c) return false;
+  return districtSet.has(c);
 }

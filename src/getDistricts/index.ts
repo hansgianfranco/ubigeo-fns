@@ -1,5 +1,9 @@
-import { districtsMap } from "../internal/maps";
+import { districtsMap } from "../internal/indexes";
+import { safeUbigeo4 } from "../internal/safeCode";
 
-export function getDistricts(provinceCode: string) {
-  return districtsMap.get(provinceCode) || [];
+export function getDistricts(provinceCode: unknown) {
+  const code = safeUbigeo4(provinceCode);
+  if (!code) return [];
+
+  return districtsMap.get(code) ?? [];
 }

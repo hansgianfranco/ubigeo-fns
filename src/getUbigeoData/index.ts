@@ -1,8 +1,9 @@
-import { data } from "../data/ubigeo";
-import { UbigeoData } from "../types";
+import { ubigeoMap } from "../internal/indexes";
+import { safeUbigeo6 } from "../internal/safeCode";
 
-export function getUbigeoData(ubigeo: string): UbigeoData | null{
-  if (!ubigeo) return null;
+export function getUbigeoData(ubigeo: unknown) {
+  const code = safeUbigeo6(ubigeo);
+  if (!code) return null;
 
-  return data.find((item) => item.ubigeo === ubigeo) || null;
+  return ubigeoMap.get(code) ?? null;
 }

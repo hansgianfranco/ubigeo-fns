@@ -1,13 +1,17 @@
-import { getUbigeoData } from "../getUbigeoData";
+import { ubigeoMap } from "../internal/indexes";
+import { safeUbigeo6 } from "../internal/safeCode";
 
 export function formatUbigeo(
-  ubigeo: string,
-  format: 'full' | 'short' = 'full'
+  ubigeo: unknown,
+  format: "full" | "short" = "full"
 ) {
-  const data = getUbigeoData(ubigeo);
-  if (!data) return '';
+  const code = safeUbigeo6(ubigeo);
+  if (!code) return "";
 
-  if (format === 'short') {
+  const data = ubigeoMap.get(code);
+  if (!data) return "";
+
+  if (format === "short") {
     return `${data.district}, ${data.province}`;
   }
 
