@@ -1,41 +1,48 @@
-# 🔒 Security Policy
+# Security Policy
+
+## Supported Versions
+
+We only provide security updates for the latest major version of this package.
+
+| Version | Supported          |
+|--------|--------------------|
+| 2.x.x  | ✅ Yes             |
+| 1.x.x  | ❌ No              |
+
+---
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in this project, please report it **privately**.
+If you discover a security vulnerability in **ubigeo-fns**, please report it responsibly:
 
-**Do not open a public issue.**
+### 📩 Contact
+- Email: hansgianfranco@users.noreply.github.com
+- Or open a private issue in the repository (if enabled)
 
-This allows time to fix the issue before it becomes publicly known.
+---
 
-### 📩 How to report
+## What to include
 
-- Email: hansgianfranco@gmail.com
-- Or open a private security advisory on GitHub
+When reporting a vulnerability, please include:
+
+- Description of the issue
+- Steps to reproduce
+- Affected version(s)
+- Possible impact
 
 ---
 
 ## Response Time
 
-This project is maintained on a best-effort basis.
+We aim to respond within:
 
-- Initial response: within 7 days
-- Fix timeline: up to 90 days depending on severity
-
----
-
-## Scope
-
-This library is focused on UBIGEO data utilities.
-
-Potential concerns may include:
-
-- Data integrity issues
-- Incorrect validation logic
-- Unexpected behavior in parsing or formatting functions
+- 🕒 24–72 hours for initial response
+- 🔧 Fix or mitigation within a reasonable timeframe depending on severity
 
 ---
 
 ## Disclosure Policy
 
-Please allow reasonable time for a fix before public disclosure.
+Please do not publicly disclose security issues until a fix has been released and announced.
+
+We appreciate responsible disclosure and community support.

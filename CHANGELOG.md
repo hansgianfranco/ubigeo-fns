@@ -1,4 +1,4 @@
-# 📦 Changelog
+# Changelog
 
 All notable changes to this project will be documented in this file.
 
@@ -7,20 +7,45 @@ and this project follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [2.0.1] - 2026-04-15
+
+### Fixed
+- Added missing export for `findByName` in package entrypoint
+
+### Added
+- `TESTING.md` with testing guide and coverage scope
+- `RELEASE.md` with release process and publishing workflow
+- `DATA_SOURCE.md` documenting official INEI (Peru) data source
+
+### Changed
+- Improved package public API consistency
+- Standardized repository documentation structure
+- Improved clarity of project maintainability and contribution flow
+- Updated and cleaned project documentation files:
+  - `CONTRIBUTING.md`
+  - `CODE_OF_CONDUCT.md`
+  - `SECURITY.md`
+
+### Notes
+- No breaking changes
+- Fully backward compatible with 2.0.0
+
+---
+
 ## [2.0.0] - 2026-04-13
 
-### ✨ Added
+### Added
 - `searchByName` function for searching ubigeos by district, province, or department name
 - Case-insensitive search support
 - Support for user-friendly text queries focused on Peru geography
 
-### ⚡ Improved
+### Improved
 - Migrated internal lookups from `Array.find()` to `Map` and `Set` (O(1) performance)
 - Standardized input normalization across all public functions
 - Improved robustness for edge cases (null, undefined, empty strings, invalid formats)
 - Consistent validation behavior across all APIs
 
-### 🧪 Testing
+### Testing
 - Expanded test coverage with Node.js native test runner
 - Added edge-case validation:
   - null and undefined inputs
@@ -33,12 +58,12 @@ and this project follows [Semantic Versioning](https://semver.org/).
 
 ## [1.2.0] - 2026-03-19
 
-### ✨ Added
+### Added
 - `getDepartments`
 - `getProvinces`
 - `getDistricts`
 
-### ⚡ Improved
+### Improved
 - Optimized hierarchical lookups using `Map` (O(1))
 - Better performance for form-dependent selects
 
@@ -46,7 +71,7 @@ and this project follows [Semantic Versioning](https://semver.org/).
 
 ## [1.1.0] - 2026-03-18
 
-### ✨ Added
+### Added
 - `getUbigeoData`
 - `parseUbigeo`
 - `formatUbigeo`
@@ -54,22 +79,22 @@ and this project follows [Semantic Versioning](https://semver.org/).
 - `isValidProvince`
 - `isValidDistrict`
 
-### ⚡ Improved
+### Improved
 - Validation performance optimized using `Set` (O(1))
 
 ---
 
 ## [1.0.0] - 2026-03-17
 
-### 🎉 Initial Release
+### Initial Release
 
-### ✨ Added
+### Added
 - `getDistrict`
 - `getProvince`
 - `getDepartment`
 - `validateUbigeo`
 
-### ⚙️ Features
+### Features
 - JavaScript and TypeScript support
 - ES Modules (ESM)
 - Type definitions included (.d.ts)

@@ -3,13 +3,6 @@
 [![npm version](https://img.shields.io/npm/v/ubigeo-fns)](https://www.npmjs.com/package/ubigeo-fns)
 [![npm downloads](https://img.shields.io/npm/dt/ubigeo-fns)](https://www.npmjs.com/package/ubigeo-fns)
 [![bundle size](https://img.shields.io/bundlephobia/minzip/ubigeo-fns)](https://bundlephobia.com/package/ubigeo-fns)
-[![license](https://img.shields.io/npm/l/ubigeo-fns)](LICENSE)
-
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
-[![Node.js](https://img.shields.io/node/v/ubigeo-fns)](https://nodejs.org/)
-[![ESM only](https://img.shields.io/badge/module-ESM--only-brightgreen)]()
-
-[![Socket Badge](https://socket.dev/api/badge/npm/package/ubigeo-fns)](https://socket.dev/npm/package/ubigeo-fns)
 ![Security](https://img.shields.io/badge/security-policy-blue)
 ---
 

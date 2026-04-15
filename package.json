@@ -1,6 +1,6 @@
 {
   "name": "ubigeo-fns",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Funciones utilitarias para trabajar con ubigeos del Perú en JavaScript y TypeScript.",
   "keywords": [
     "ubigeo",
@@ -80,6 +80,10 @@
     "./formatUbigeo": {
       "types": "./dist/formatUbigeo/index.d.ts",
       "import": "./dist/formatUbigeo/index.js"
+    },
+    "./searchByName": {
+      "types": "./dist/searchByName/index.d.ts",
+      "import": "./dist/searchByName/index.js"
     },
     "./validators": {
       "types": "./dist/validators/index.d.ts",
