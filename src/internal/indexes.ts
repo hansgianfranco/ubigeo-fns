@@ -11,6 +11,15 @@ const departmentsMap = new Map<string, string>();
 const provincesMap = new Map<string, Map<string, string>>();
 const districtsMap = new Map<string, { code: string; name: string }[]>();
 
+export const searchIndex: { data: UbigeoData; searchString: string }[] = [];
+
+const normalizeForSearch = (value: string) =>
+  value
+    .toLowerCase()
+    .trim()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+
 for (const item of data) {
   const depCode = item.ubigeo.slice(0, 2);
   const provCode = item.ubigeo.slice(0, 4);
@@ -39,6 +48,15 @@ for (const item of data) {
   districtsMap.get(provCode)!.push({
     code: distCode,
     name: item.district,
+  });
+
+  const searchString = normalizeForSearch(
+    `${item.district} ${item.province} ${item.department}`
+  );
+
+  searchIndex.push({
+    data: item,
+    searchString,
   });
 }
 

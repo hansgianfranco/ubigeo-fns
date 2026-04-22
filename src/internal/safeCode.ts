@@ -1,4 +1,5 @@
 export function safeUbigeo2(code: unknown): string | null {
+  if (typeof code === "number") code = code.toString().padStart(2, "0");
   if (typeof code !== "string") return null;
 
   const c = code.trim();
@@ -10,6 +11,7 @@ export function safeUbigeo2(code: unknown): string | null {
 }
 
 export function safeUbigeo4(code: unknown): string | null {
+  if (typeof code === "number") code = code.toString().padStart(4, "0");
   if (typeof code !== "string") return null;
 
   const c = code.trim();
@@ -21,6 +23,7 @@ export function safeUbigeo4(code: unknown): string | null {
 }
 
 export function safeUbigeo6(code: unknown): string | null {
+  if (typeof code === "number") code = code.toString().padStart(6, "0");
   if (typeof code !== "string") return null;
 
   const c = code.trim();

@@ -1,4 +1,4 @@
-import { data } from "../data/ubigeo";
+import { searchIndex } from "../internal/indexes";
 
 export type SearchResult = {
   ubigeo: string;
@@ -14,7 +14,10 @@ const normalize = (value: string) =>
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
 
-export function searchByName(query: string): SearchResult[] {
+export function searchByName(
+  query: string,
+  options?: { limit?: number }
+): SearchResult[] {
   if (typeof query !== "string") return [];
 
   const q = normalize(query);
@@ -22,19 +25,20 @@ export function searchByName(query: string): SearchResult[] {
   if (!q) return [];
 
   const results: SearchResult[] = [];
+  const limit = options?.limit ?? 50;
 
-  for (const item of data) {
-    if (
-      normalize(item.district).includes(q) ||
-      normalize(item.province).includes(q) ||
-      normalize(item.department).includes(q)
-    ) {
+  for (const item of searchIndex) {
+    if (item.searchString.includes(q)) {
       results.push({
-        ubigeo: item.ubigeo,
-        district: item.district,
-        province: item.province,
-        department: item.department,
+        ubigeo: item.data.ubigeo,
+        district: item.data.district,
+        province: item.data.province,
+        department: item.data.department,
       });
+
+      if (results.length >= limit) {
+        break;
+      }
     }
   }
 

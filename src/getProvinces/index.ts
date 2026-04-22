@@ -1,7 +1,9 @@
 import { provincesMap } from "../internal/indexes";
 import { safeUbigeo2 } from "../internal/safeCode";
 
-export function getProvinces(departmentCode: unknown) {
+export function getProvinces(
+  departmentCode: unknown
+): { code: string; name: string }[] {
   const code = safeUbigeo2(departmentCode);
   if (!code) return [];
 

@@ -18,3 +18,6 @@ export {
   isValidProvince,
   isValidDistrict
 } from "./validators";
+
+export type { UbigeoData } from "./types";
+export type { SearchResult } from "./searchByName";

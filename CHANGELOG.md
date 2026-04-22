@@ -7,8 +7,24 @@ and this project follows [Semantic Versioning](https://semver.org/).
 
 ---
 
-## [2.0.1] - 2026-04-15
+## [2.1.0] - 2026-04-22
 
+### Added
+- Exported TypeScript types `UbigeoData` and `SearchResult`
+- `searchByName` now accepts an optional `limit` parameter for pagination/limiting results (default: 50)
+- Support for numeric inputs in all public API functions (auto-converts and pads zeros automatically)
+
+### Changed
+- `formatUbigeo` now returns `null` instead of `""` when provided an invalid ubigeo to unify behavior across functions.
+
+### Improved
+- Massively improved performance of `searchByName` by pre-computing normalized search strings at startup
+- Fixed ESLint configuration and exported strict explicit return types for all public module boundaries
+- Migrated testing framework from Node.js native test runner to **Jest** with `ts-jest` for direct source code testing and accurate coverage reporting
+
+---
+
+## [2.0.1] - 2026-04-15
 ### Fixed
 - Added missing export for `findByName` in package entrypoint
 

@@ -1,4 +1,6 @@
 import tsParser from '@typescript-eslint/parser';
+import tsPlugin from '@typescript-eslint/eslint-plugin';
+
 export default [
   {
     files: ['**/*.ts'],
@@ -7,8 +9,11 @@ export default [
       parserOptions: {
         ecmaVersion: 2022,
         sourceType: 'module',
-        project: './tsconfig.json',
+        project: './tsconfig.eslint.json',
       },
+    },
+    plugins: {
+      '@typescript-eslint': tsPlugin,
     },
     rules: {
       '@typescript-eslint/no-explicit-any': 'warn',

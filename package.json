@@ -1,6 +1,6 @@
 {
   "name": "ubigeo-fns",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Funciones utilitarias para trabajar con ubigeos del Perú en JavaScript y TypeScript.",
   "keywords": [
     "ubigeo",
@@ -96,16 +96,20 @@
   "scripts": {
     "build": "tsup src/index.ts --format esm --dts --minify",
     "dev": "tsc --watch",
-    "test": "node --test",
-    "test:watch": "node --test --watch",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
+    "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "@typescript-eslint/eslint-plugin": "^8.57.1",
     "@typescript-eslint/parser": "^8.57.1",
     "eslint": "^9.39.4",
+    "jest": "^30.3.0",
+    "ts-jest": "^29.4.9",
     "tsup": "^8.5.1",
     "typescript": "^5.0.0"
   }

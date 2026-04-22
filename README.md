@@ -9,25 +9,26 @@
 **Funciones utilitarias para trabajar con ubigeos del Perú en JavaScript y TypeScript.**  
 Basado en datos oficiales del **INEI (Instituto Nacional de Estadística e Informática)**.
 
-## 📊 Fuente de datos
+## Fuente de datos
 
 Los datos de ubigeos incluidos en este paquete provienen del **INEI** (códigos de departamentos, provincias y distritos del Perú) y se complementan con información geográfica (coordenadas, población y área) extraída de fuentes oficiales.
 Referencia: [INEI - Códigos de ubigeo](https://www.inei.gob.pe/)
 
-## ✨ Características
+## Características
 
 - Obtener **distrito, provincia y departamento** por código UBIGEO
 - Acceder a información completa del ubigeo (coordenadas, población, área)
 - Validar códigos UBIGEO (departamento, provincia, distrito)
 - Formatear ubigeos en texto listo para UI
 - Parsear códigos UBIGEO en estructura jerárquica
-- Búsqueda por nombre (`searchByName`) con coincidencia parcial
+- Búsqueda por nombre (`searchByName`) con coincidencia parcial y límite de resultados
+- Flexibilidad de entrada: Soporta códigos en formato numérico o texto (ej: `150131` o `"150131"`)
 - Búsquedas optimizadas con estructuras **O(1)**
 - Compatible con **JavaScript y TypeScript**
 - Optimizado para **Node.js, React y bundlers modernos**
 - Soporta **tree-shaking y minificación**
 
-## 💡 Casos de uso
+## Casos de uso
 
 - Formularios con selects dependientes (departamento → provincia → distrito)
 - Validación de direcciones en sistemas de facturación electrónica (Sunat)
@@ -37,7 +38,7 @@ Referencia: [INEI - Códigos de ubigeo](https://www.inei.gob.pe/)
 - Sistemas de registro de personas y empresas
 
 
-## ⚡ Instalación
+## Instalación
 
 ```bash
 npm install ubigeo-fns
@@ -46,7 +47,7 @@ yarn add ubigeo-fns
 ```
 
 
-## 📦 Uso rápido
+## Uso rápido
 ```ts
 import {
   getDistrict,
@@ -71,12 +72,15 @@ validateUbigeo(ubigeo); // true
 formatUbigeo(ubigeo);         // "San Isidro, Lima, Lima"
 formatUbigeo(ubigeo, "short");// "San Isidro, Lima"
 
-// Búsqueda por nombre
+// Búsqueda por nombre (devuelve hasta 50 resultados por defecto)
 searchByName("San Isidro");   // [{ ubigeo: "150131", district: "San Isidro", ... }]
+
+// Búsqueda con límite personalizado
+searchByName("San", { limit: 10 }); // Devuelve hasta 10 resultados
 ```
 
 
-## 📚 API completa
+## API completa
 ```ts
 import {
   getDistrict,
@@ -123,7 +127,7 @@ isValidProvince("1501");   // true
 isValidDistrict("150131"); // true
 ```
 
-### 🧩 Tipos TypeScript
+### Tipos TypeScript
 
 ```ts
 interface UbigeoData {
@@ -139,7 +143,7 @@ interface UbigeoData {
 ```
 
 
-## 🔧 Funciones disponibles
+## Funciones disponibles
 
 | Función               | Descripción                                | Parámetros                                   | Retorno              |
 | --------------------- | ------------------------------------------ | -------------------------------------------- | -------------------- |
@@ -152,13 +156,13 @@ interface UbigeoData {
 | `validateUbigeo()`    | Valida si el UBIGEO existe                 | `ubigeo: string`                             | `boolean`            |
 | `getUbigeoData()`     | Devuelve toda la información del ubigeo    | `ubigeo: string`                             | `UbigeoData \| null` |
 | `parseUbigeo()`       | Separa el ubigeo en códigos jerárquicos    | `ubigeo: string`                             | `object \| null`     |
-| `formatUbigeo()`      | Devuelve el ubigeo formateado              | `ubigeo: string, format?: 'full' \| 'short'` | `string`             |
-| `searchByName()`      | Búsqueda por nombre              | `name: string`             | `UbigeoData[]` |
+| `formatUbigeo()`      | Devuelve el ubigeo formateado              | `ubigeo: string \| number, format?: 'full' \| 'short'` | `string \| null`     |
+| `searchByName()`      | Búsqueda por nombre              | `name: string, options?: { limit?: number }`             | `SearchResult[]` |
 | `isValidDepartment()` | Valida si el código de departamento existe | `code: string`                               | `boolean`            |
 | `isValidProvince()`   | Valida si el código de provincia existe    | `code: string`                               | `boolean`            |
 | `isValidDistrict()`   | Valida si el código de distrito existe     | `code: string`                               | `boolean`            |
 
-## ⚙️ Desarrollo y build
+## Desarrollo y build
 
 El proyecto está preparado con `tsup` para builds optimizados:
 
@@ -170,7 +174,7 @@ npm run build
 - Minificado y optimizado
 - Listo para publicar en npm
 
-## ⚠️ Tamaño del bundle
+## Tamaño del bundle
 
 Este paquete incluye el dataset completo de ubigeos con información geográfica (~245KB).
 
@@ -178,18 +182,26 @@ Este paquete incluye el dataset completo de ubigeos con información geográfica
 - Para aplicaciones frontend, considera lazy loading si el tamaño es crítico
 - El tree-shaking es compatible, pero el dataset es compartido entre funciones
 
-## 📦 Changelog
+## Documentación Adicional
+
+- [Guía de Contribución (CONTRIBUTING)](CONTRIBUTING.md)
+- [Código de Conducta (CODE_OF_CONDUCT)](CODE_OF_CONDUCT.md)
+- [Políticas de Seguridad (SECURITY)](SECURITY.md)
+- [Guía de Pruebas (TESTING)](TESTING.md)
+- [Fuente de Datos (DATA_SOURCE)](DATA_SOURCE.md)
+
+## Changelog
 
 Ver [CHANGELOG.md](CHANGELOG.md) para el historial de versiones.
 
 
-## 📝 Licencia
+## Licencia
 
 MIT © 2026 Franco Caballero
 [LICENSE](LICENSE)
 
 
-## 🌎 Enlaces
+## Enlaces
 
 - GitHub: [https://github.com/hansgianfranco/ubigeo-fns](https://github.com/hansgianfranco/ubigeo-fns)
 - npm: [https://www.npmjs.com/package/ubigeo-fns](https://www.npmjs.com/package/ubigeo-fns)
