@@ -32,6 +32,13 @@ describe("Ubigeo Functions", () => {
       expect(getDistrict("999999")).toBeNull();
       expect(validateUbigeo("999999")).toBe(false);
     });
+
+    it("should support short codes for departments and provinces", () => {
+      expect(getDepartment("15")).toBe("Lima");
+      expect(getProvince("1501")).toBe("Lima");
+      expect(getDepartment(15)).toBe("Lima");
+      expect(getProvince(1501)).toBe("Lima");
+    });
   });
 
   describe("Input Safety", () => {
@@ -160,7 +167,7 @@ describe("Ubigeo Functions", () => {
 
       const provsNum = getProvinces(15);
       expect(provsNum).toEqual(provs);
-      
+
       expect(getProvinces("99")).toEqual([]);
     });
 
@@ -169,7 +176,7 @@ describe("Ubigeo Functions", () => {
       expect(Array.isArray(dists)).toBe(true);
       expect(dists.length).toBeGreaterThan(0);
       expect(dists.some((d) => d.code === "150131" && d.name === "San Isidro")).toBe(true);
-      
+
       expect(getDistricts("9999")).toEqual([]);
     });
   });
@@ -217,7 +224,7 @@ describe("Ubigeo Functions", () => {
       const r1 = searchByName("Chachapoyas");
       expect(Array.isArray(r1)).toBe(true);
       expect(r1.length).toBeGreaterThan(0);
-      
+
       const r2 = searchByName("Áncash");
       expect(r2.length).toBeGreaterThan(0);
       expect(r2.some(x => x.department === "Ancash")).toBe(true);

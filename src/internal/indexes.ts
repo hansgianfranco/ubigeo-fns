@@ -1,5 +1,6 @@
 import { data } from "../data/ubigeo";
 import { UbigeoData } from "../types";
+import { normalize } from "./normalize";
 
 const ubigeoMap = new Map<string, UbigeoData>();
 
@@ -9,16 +10,12 @@ const districtSet = new Set<string>();
 
 const departmentsMap = new Map<string, string>();
 const provincesMap = new Map<string, Map<string, string>>();
+const provinceNamesMap = new Map<string, string>();
 const districtsMap = new Map<string, { code: string; name: string }[]>();
 
 export const searchIndex: { data: UbigeoData; searchString: string }[] = [];
 
-const normalizeForSearch = (value: string) =>
-  value
-    .toLowerCase()
-    .trim()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
+
 
 for (const item of data) {
   const depCode = item.ubigeo.slice(0, 2);
@@ -40,6 +37,7 @@ for (const item of data) {
   }
 
   provincesMap.get(depCode)!.set(provCode, item.province);
+  provinceNamesMap.set(provCode, item.province);
 
   if (!districtsMap.has(provCode)) {
     districtsMap.set(provCode, []);
@@ -50,7 +48,7 @@ for (const item of data) {
     name: item.district,
   });
 
-  const searchString = normalizeForSearch(
+  const searchString = normalize(
     `${item.district} ${item.province} ${item.department}`
   );
 
@@ -67,5 +65,6 @@ export {
   districtSet,
   departmentsMap,
   provincesMap,
+  provinceNamesMap,
   districtsMap
 };

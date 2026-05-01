@@ -23,6 +23,7 @@ Referencia: [INEI - Códigos de ubigeo](https://www.inei.gob.pe/)
 - Parsear códigos UBIGEO en estructura jerárquica
 - Búsqueda por nombre (`searchByName`) con coincidencia parcial y límite de resultados
 - Flexibilidad de entrada: Soporta códigos en formato numérico o texto (ej: `150131` o `"150131"`)
+- Soporte para códigos cortos: `getDepartment` y `getProvince` aceptan códigos de 2 y 4 dígitos respectivamente
 - Búsquedas optimizadas con estructuras **O(1)**
 - Compatible con **JavaScript y TypeScript**
 - Optimizado para **Node.js, React y bundlers modernos**

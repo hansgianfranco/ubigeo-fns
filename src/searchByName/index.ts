@@ -7,12 +7,7 @@ export type SearchResult = {
   department: string;
 };
 
-const normalize = (value: string) =>
-  value
-    .toLowerCase()
-    .trim()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
+import { normalize } from "../internal/normalize";
 
 export function searchByName(
   query: string,

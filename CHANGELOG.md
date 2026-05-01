@@ -7,6 +7,21 @@ and this project follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [2.2.0] - 2026-05-01
+
+### Added
+- `getDepartment` and `getProvince` now support short codes (2-digit for departments, 4-digit for provinces) in addition to full 6-digit UBIGEO codes.
+- New internal `provinceNamesMap` for O(1) lookup of province names by code.
+
+### Changed
+- Refactored string normalization logic into a shared internal utility to ensure consistency across search and indexing.
+
+### Improved
+- Optimized internal index initialization.
+- Full compatibility with Jest 30.
+
+---
+
 ## [2.1.0] - 2026-04-22
 
 ### Added
