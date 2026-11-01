@@ -7,6 +7,23 @@ and this project follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [2.3.0] - 2026-07-22
+
+### Added
+- Dual format build output: CommonJS (`.cjs`) and ECMAScript Modules (`.js`).
+- Node.js compatibility expanded to `node >= 14` with CJS `require()` support.
+- Subpath exports build targets for all individual module entrypoints (`ubigeo-fns/getDistrict`, `ubigeo-fns/searchByName`, etc.).
+- Workspace agent rules in `.agents/AGENTS.md`.
+
+### Fixed
+- Fixed missing compiled subpath output files in `dist/` directory.
+
+### Improved
+- Lazy evaluation for `searchIndex` to eliminate module load startup overhead when `searchByName` is not called.
+- Updated ESLint configuration CLI options.
+
+---
+
 ## [2.2.0] - 2026-05-01
 
 ### Added

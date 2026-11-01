@@ -3,207 +3,316 @@
 [![npm version](https://img.shields.io/npm/v/ubigeo-fns)](https://www.npmjs.com/package/ubigeo-fns)
 [![npm downloads](https://img.shields.io/npm/dt/ubigeo-fns)](https://www.npmjs.com/package/ubigeo-fns)
 [![bundle size](https://img.shields.io/bundlephobia/minzip/ubigeo-fns)](https://bundlephobia.com/package/ubigeo-fns)
-![Security](https://img.shields.io/badge/security-policy-blue)
+[![license](https://img.shields.io/npm/l/ubigeo-fns)](LICENSE.md)
+
+**Funciones utilitarias para trabajar con códigos UBIGEO del Perú en JavaScript y TypeScript.**  
+Basado en datos oficiales del [INEI](https://www.inei.gob.pe/) — incluye coordenadas, población y área por distrito.
+
 ---
-
-**Funciones utilitarias para trabajar con ubigeos del Perú en JavaScript y TypeScript.**  
-Basado en datos oficiales del **INEI (Instituto Nacional de Estadística e Informática)**.
-
-## Fuente de datos
-
-Los datos de ubigeos incluidos en este paquete provienen del **INEI** (códigos de departamentos, provincias y distritos del Perú) y se complementan con información geográfica (coordenadas, población y área) extraída de fuentes oficiales.
-Referencia: [INEI - Códigos de ubigeo](https://www.inei.gob.pe/)
 
 ## Características
 
-- Obtener **distrito, provincia y departamento** por código UBIGEO
-- Acceder a información completa del ubigeo (coordenadas, población, área)
-- Validar códigos UBIGEO (departamento, provincia, distrito)
-- Formatear ubigeos en texto listo para UI
-- Parsear códigos UBIGEO en estructura jerárquica
-- Búsqueda por nombre (`searchByName`) con coincidencia parcial y límite de resultados
-- Flexibilidad de entrada: Soporta códigos en formato numérico o texto (ej: `150131` o `"150131"`)
-- Soporte para códigos cortos: `getDepartment` y `getProvince` aceptan códigos de 2 y 4 dígitos respectivamente
-- Búsquedas optimizadas con estructuras **O(1)**
-- Compatible con **JavaScript y TypeScript**
-- Optimizado para **Node.js, React y bundlers modernos**
-- Soporta **tree-shaking y minificación**
+- 🔍 Consulta de **distrito, provincia y departamento** por código UBIGEO
+- 📋 Listados jerárquicos: departamentos → provincias → distritos
+- 📦 Información completa del ubigeo (coordenadas GPS, población, área en km²)
+- ✅ Validación de códigos a nivel departamento, provincia y distrito
+- 🖋️ Formateo de ubigeo en texto listo para UI (`"San Isidro, Lima, Lima"`)
+- 🧩 Parseo de código UBIGEO en estructura jerárquica
+- 🔎 Búsqueda por nombre con soporte de acentos y mayúsculas (`searchByName`)
+- 🔢 Entrada flexible: acepta `string` o `number` en todas las funciones
+- 📐 Códigos cortos: `getDepartment("15")` y `getProvince("1501")` funcionan directamente
+- ⚡ Lookups O(1) con `Map` y `Set` internos
+- 🌳 Tree-shakeable · Dual ESM + CJS · TypeScript incluido
 
 ## Casos de uso
 
-- Formularios con selects dependientes (departamento → provincia → distrito)
-- Validación de direcciones en sistemas de facturación electrónica (Sunat)
-- Apps de delivery y logística
-- Dashboards geográficos
-- Normalización de ubicaciones en Perú
-- Sistemas de registro de personas y empresas
+- Formularios con selects encadenados (departamento → provincia → distrito)
+- Validación de direcciones para facturación electrónica (SUNAT)
+- Apps de delivery, logística y e-commerce
+- Dashboards geográficos y mapas
+- Normalización y enriquecimiento de datos de ubicación
 
+---
 
 ## Instalación
 
 ```bash
 npm install ubigeo-fns
-# o usando yarn
+# o con yarn
 yarn add ubigeo-fns
+# o con pnpm
+pnpm add ubigeo-fns
 ```
 
+---
 
 ## Uso rápido
+
 ```ts
 import {
-  getDistrict,
-  getProvince,
   getDepartment,
+  getProvince,
+  getDistrict,
   validateUbigeo,
   formatUbigeo,
-  searchByName
+  searchByName,
 } from "ubigeo-fns";
 
-// Obtener jerarquía geográfica
 const ubigeo = "150131";
 
+// Consulta jerárquica
 getDepartment(ubigeo); // "Lima"
 getProvince(ubigeo);   // "Lima"
 getDistrict(ubigeo);   // "San Isidro"
 
-// Validar código
+// Validación
 validateUbigeo(ubigeo); // true
+validateUbigeo("999999"); // false
 
-// Formatear para UI
-formatUbigeo(ubigeo);         // "San Isidro, Lima, Lima"
-formatUbigeo(ubigeo, "short");// "San Isidro, Lima"
+// Formateo para UI
+formatUbigeo(ubigeo);          // "San Isidro, Lima, Lima"
+formatUbigeo(ubigeo, "short"); // "San Isidro, Lima"
 
-// Búsqueda por nombre (devuelve hasta 50 resultados por defecto)
-searchByName("San Isidro");   // [{ ubigeo: "150131", district: "San Isidro", ... }]
-
-// Búsqueda con límite personalizado
-searchByName("San", { limit: 10 }); // Devuelve hasta 10 resultados
+// Búsqueda por nombre (insensible a mayúsculas y acentos)
+searchByName("san isidro");        // [{ ubigeo: "150131", district: "San Isidro", ... }]
+searchByName("san", { limit: 5 }); // primeros 5 resultados que contengan "san"
 ```
 
+---
 
-## API completa
+## API
+
+### Consultas por código
+
 ```ts
-import {
-  getDistrict,
-  getProvince,
-  getDepartment,
-  getDepartments,
-  getProvinces,
-  getDistricts,
-  validateUbigeo,
-  getUbigeoData,
-  parseUbigeo,
-  formatUbigeo,
-  isValidDepartment,
-  isValidProvince,
-  isValidDistrict,
-  searchByName
-} from "ubigeo-fns";
+getDepartment(ubigeo: unknown): string | null
+getProvince(ubigeo: unknown):   string | null
+getDistrict(ubigeo: unknown):   string | null
+```
 
-// Obtener listas jerárquicas
-getDepartments();   // [{ code: "15", name: "Lima" }, ...]
-getProvinces("15"); // [{ code: "1501", name: "Lima" }, ...]
-getDistricts("1501"); // [{ code: "150131", name: "San Isidro" }, ...]
+Aceptan un código UBIGEO de **2, 4 o 6 dígitos** (string o number).
+Devuelven el nombre correspondiente o `null` si el código no existe.
 
-// Información completa
+```ts
+getDepartment("150131"); // "Lima"  — desde código de 6 dígitos
+getDepartment("15");     // "Lima"  — desde código de departamento
+getDepartment(15);       // "Lima"  — número también es válido
+
+getProvince("150131");   // "Lima"  — desde código de 6 dígitos
+getProvince("1501");     // "Lima"  — desde código de provincia
+```
+
+---
+
+### Listados jerárquicos
+
+```ts
+getDepartments():                   { code: string; name: string }[]
+getProvinces(departmentCode: unknown): { code: string; name: string }[]
+getDistricts(provinceCode: unknown):   { code: string; name: string }[]
+```
+
+```ts
+getDepartments();    // [{ code: "01", name: "Amazonas" }, { code: "15", name: "Lima" }, ...]
+getProvinces("15");  // [{ code: "1501", name: "Lima" }, { code: "1502", name: "Barranca" }, ...]
+getDistricts("1501"); // [{ code: "150101", name: "Lima" }, { code: "150131", name: "San Isidro" }, ...]
+```
+
+---
+
+### Información completa
+
+```ts
+getUbigeoData(ubigeo: unknown): UbigeoData | null
+```
+
+```ts
 const data = getUbigeoData("150131");
 // {
-//   ubigeo: "150131",
-//   district: "San Isidro",
-//   province: "Lima",
+//   ubigeo:     "150131",
+//   district:   "San Isidro",
+//   province:   "Lima",
 //   department: "Lima",
 //   population: 60367,
-//   area: 9.36,
-//   lat: -12.0989,
-//   lng: -77.0434
+//   area:       9.36,      // km²
+//   lat:        -12.0989,
+//   lng:        -77.0434
 // }
+```
 
-// Parsear códigos
+---
+
+### Parseo
+
+```ts
+parseUbigeo(ubigeo: unknown): { departmentCode: string; provinceCode: string; districtCode: string } | null
+```
+
+```ts
 parseUbigeo("150131");
 // { departmentCode: "15", provinceCode: "1501", districtCode: "150131" }
 
-// Validaciones específicas
-isValidDepartment("15");   // true
-isValidProvince("1501");   // true
-isValidDistrict("150131"); // true
+parseUbigeo("15013a"); // null — formato inválido
 ```
+
+---
+
+### Formateo
+
+```ts
+formatUbigeo(ubigeo: unknown, format?: "full" | "short"): string | null
+```
+
+| `format` | Resultado |
+|---|---|
+| `"full"` _(default)_ | `"San Isidro, Lima, Lima"` |
+| `"short"` | `"San Isidro, Lima"` |
+
+```ts
+formatUbigeo("150131");          // "San Isidro, Lima, Lima"
+formatUbigeo("150131", "short"); // "San Isidro, Lima"
+formatUbigeo("999999");          // null
+```
+
+---
+
+### Validación
+
+```ts
+validateUbigeo(code: unknown):    boolean  // valida código de 6 dígitos (distrito)
+isValidDepartment(code: unknown): boolean  // valida código de 2 dígitos
+isValidProvince(code: unknown):   boolean  // valida código de 4 dígitos
+isValidDistrict(code: unknown):   boolean  // valida código de 6 dígitos
+```
+
+```ts
+validateUbigeo("150131");    // true
+validateUbigeo("999999");    // false
+isValidDepartment("15");     // true
+isValidProvince("1501");     // true
+isValidDistrict("150131");   // true
+```
+
+---
+
+### Búsqueda por nombre
+
+```ts
+searchByName(query: string, options?: { limit?: number }): SearchResult[]
+```
+
+- Insensible a mayúsculas/minúsculas
+- Insensible a acentos (`"Ancash"` ≡ `"Áncash"`)
+- Busca en distrito, provincia y departamento simultáneamente
+- Límite por defecto: **50 resultados**
+
+```ts
+searchByName("chachapoyas");
+// [{ ubigeo: "010101", district: "Chachapoyas", province: "Chachapoyas", department: "Amazonas" }]
+
+searchByName("lima", { limit: 3 });
+// Primeros 3 resultados que contienen "lima" en cualquier nivel
+```
+
+---
 
 ### Tipos TypeScript
 
 ```ts
+import type { UbigeoData, SearchResult } from "ubigeo-fns";
+
 interface UbigeoData {
-  ubigeo: string;      // Código de 6 dígitos
-  district: string;    // Nombre del distrito
-  province: string;    // Nombre de la provincia
+  ubigeo:     string;  // Código UBIGEO de 6 dígitos
+  district:   string;  // Nombre del distrito
+  province:   string;  // Nombre de la provincia
   department: string;  // Nombre del departamento
-  population: number;  // Población (fuente: INEI)
-  area: number;        // Área en km²
-  lat: number;         // Latitud
-  lng: number;         // Longitud
+  population: number;  // Población (fuente INEI)
+  area:       number;  // Área en km²
+  lat:        number;  // Latitud decimal
+  lng:        number;  // Longitud decimal
+}
+
+interface SearchResult {
+  ubigeo:     string;
+  district:   string;
+  province:   string;
+  department: string;
 }
 ```
 
+---
 
-## Funciones disponibles
+## Imports por subpath
 
-| Función               | Descripción                                | Parámetros                                   | Retorno              |
-| --------------------- | ------------------------------------------ | -------------------------------------------- | -------------------- |
-| `getDepartment()`     | Devuelve el nombre del departamento        | `ubigeo: string`                             | `string`             |
-| `getProvince()`       | Devuelve el nombre de la provincia         | `ubigeo: string`                             | `string`             |
-| `getDistrict()`       | Devuelve el nombre del distrito            | `ubigeo: string`                             | `string`             |
-| `getDepartments()`   | Lista todos los departamentos             | -             | `{ code, name }[]` |
-| `getProvinces()`     | Lista provincias por departamento         | `code: string`| `{ code, name }[]` |
-| `getDistricts()`     | Lista distritos por provincia             | `code: string`| `{ code, name }[]` |
-| `validateUbigeo()`    | Valida si el UBIGEO existe                 | `ubigeo: string`                             | `boolean`            |
-| `getUbigeoData()`     | Devuelve toda la información del ubigeo    | `ubigeo: string`                             | `UbigeoData \| null` |
-| `parseUbigeo()`       | Separa el ubigeo en códigos jerárquicos    | `ubigeo: string`                             | `object \| null`     |
-| `formatUbigeo()`      | Devuelve el ubigeo formateado              | `ubigeo: string \| number, format?: 'full' \| 'short'` | `string \| null`     |
-| `searchByName()`      | Búsqueda por nombre              | `name: string, options?: { limit?: number }`             | `SearchResult[]` |
-| `isValidDepartment()` | Valida si el código de departamento existe | `code: string`                               | `boolean`            |
-| `isValidProvince()`   | Valida si el código de provincia existe    | `code: string`                               | `boolean`            |
-| `isValidDistrict()`   | Valida si el código de distrito existe     | `code: string`                               | `boolean`            |
+Para aplicaciones que requieren máxima granularidad en el tree-shaking, cada función está disponible como subpath independiente:
 
-## Desarrollo y build
-
-El proyecto está preparado con `tsup` para builds optimizados:
-
-```bash
-npm run build
+```ts
+import { getDepartment }  from "ubigeo-fns/getDepartment";
+import { getProvince }    from "ubigeo-fns/getProvince";
+import { getDistrict }    from "ubigeo-fns/getDistrict";
+import { getDepartments } from "ubigeo-fns/getDepartments";
+import { getProvinces }   from "ubigeo-fns/getProvinces";
+import { getDistricts }   from "ubigeo-fns/getDistricts";
+import { getUbigeoData }  from "ubigeo-fns/getUbigeoData";
+import { parseUbigeo }    from "ubigeo-fns/parseUbigeo";
+import { formatUbigeo }   from "ubigeo-fns/formatUbigeo";
+import { searchByName }   from "ubigeo-fns/searchByName";
+import {
+  validateUbigeo,
+  isValidDepartment,
+  isValidProvince,
+  isValidDistrict,
+} from "ubigeo-fns/validators";
 ```
 
-- Genera `dist/` con ESM + TypeScript types
-- Minificado y optimizado
-- Listo para publicar en npm
+---
 
-## Tamaño del bundle
+## Nota sobre el tamaño del bundle
 
-Este paquete incluye el dataset completo de ubigeos con información geográfica (~245KB).
+Este paquete incluye el dataset completo de ubigeos del Perú con datos geográficos (**~245 KB minificado**).  
+Es la única dependencia real del paquete y es requerida por todas las funciones.
 
-- Recomendado para Node.js, backend y aplicaciones empresariales
-- Para aplicaciones frontend, considera lazy loading si el tamaño es crítico
-- El tree-shaking es compatible, pero el dataset es compartido entre funciones
+- ✅ **Node.js y backend**: uso directo sin consideraciones adicionales
+- ✅ **Bundlers (Vite, Webpack, esbuild)**: el chunk de datos se comparte entre imports en ESM
+- ⚠️ **Frontend con bundle crítico**: considera cargar el módulo de forma lazy si el tamaño es una restricción
 
-## Documentación Adicional
+---
 
-- [Guía de Contribución (CONTRIBUTING)](CONTRIBUTING.md)
-- [Código de Conducta (CODE_OF_CONDUCT)](CODE_OF_CONDUCT.md)
-- [Políticas de Seguridad (SECURITY)](SECURITY.md)
-- [Guía de Pruebas (TESTING)](TESTING.md)
-- [Fuente de Datos (DATA_SOURCE)](DATA_SOURCE.md)
+## Desarrollo
 
-## Changelog
+```bash
+# Instalar dependencias
+npm install
 
-Ver [CHANGELOG.md](CHANGELOG.md) para el historial de versiones.
+# Build (ESM + CJS + tipos)
+npm run build
 
+# Tests
+npm test
+
+# Tests con cobertura
+npm run test:coverage
+
+# Linting
+npm run lint
+npm run lint:fix
+```
+
+---
+
+## Documentación adicional
+
+| Documento | Descripción |
+|---|---|
+| [CHANGELOG.md](CHANGELOG.md) | Historial de versiones |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Guía para contribuir |
+| [TESTING.md](TESTING.md) | Alcance de las pruebas |
+| [DATA_SOURCE.md](DATA_SOURCE.md) | Fuente y licencia de los datos |
+| [SECURITY.md](SECURITY.md) | Política de seguridad |
+| [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) | Código de conducta |
+
+---
 
 ## Licencia
 
-MIT © 2026 Franco Caballero
-[LICENSE](LICENSE)
-
-
-## Enlaces
-
-- GitHub: [https://github.com/hansgianfranco/ubigeo-fns](https://github.com/hansgianfranco/ubigeo-fns)
-- npm: [https://www.npmjs.com/package/ubigeo-fns](https://www.npmjs.com/package/ubigeo-fns)
-- INEI - Ubigeos: [https://www.inei.gob.pe](https://www.inei.gob.pe)
+MIT © 2026 [Franco Caballero](https://francocaballero.dev)

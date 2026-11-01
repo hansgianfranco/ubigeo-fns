@@ -1,4 +1,5 @@
-import { searchIndex } from "../internal/indexes";
+import { getSearchIndex } from "../internal/indexes";
+import { normalize } from "../internal/normalize";
 
 export type SearchResult = {
   ubigeo: string;
@@ -6,8 +7,6 @@ export type SearchResult = {
   province: string;
   department: string;
 };
-
-import { normalize } from "../internal/normalize";
 
 export function searchByName(
   query: string,
@@ -21,6 +20,7 @@ export function searchByName(
 
   const results: SearchResult[] = [];
   const limit = options?.limit ?? 50;
+  const searchIndex = getSearchIndex();
 
   for (const item of searchIndex) {
     if (item.searchString.includes(q)) {

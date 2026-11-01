@@ -13,9 +13,19 @@ const provincesMap = new Map<string, Map<string, string>>();
 const provinceNamesMap = new Map<string, string>();
 const districtsMap = new Map<string, { code: string; name: string }[]>();
 
-export const searchIndex: { data: UbigeoData; searchString: string }[] = [];
+let searchIndexCache: { data: UbigeoData; searchString: string }[] | null = null;
 
-
+export function getSearchIndex(): { data: UbigeoData; searchString: string }[] {
+  if (!searchIndexCache) {
+    searchIndexCache = data.map((item) => ({
+      data: item,
+      searchString: normalize(
+        `${item.district} ${item.province} ${item.department}`
+      ),
+    }));
+  }
+  return searchIndexCache;
+}
 
 for (const item of data) {
   const depCode = item.ubigeo.slice(0, 2);
@@ -46,15 +56,6 @@ for (const item of data) {
   districtsMap.get(provCode)!.push({
     code: distCode,
     name: item.district,
-  });
-
-  const searchString = normalize(
-    `${item.district} ${item.province} ${item.department}`
-  );
-
-  searchIndex.push({
-    data: item,
-    searchString,
   });
 }
 

@@ -246,4 +246,20 @@ describe("Ubigeo Functions", () => {
       expect(r2.length).toBe(10);
     });
   });
+
+  describe("Subpath Entrypoint Imports", () => {
+    it("should allow direct imports from subpath modules", async () => {
+      const { getDistrict: gd } = await import("../src/getDistrict");
+      const { getProvince: gp } = await import("../src/getProvince");
+      const { getDepartment: gdep } = await import("../src/getDepartment");
+      const { searchByName: sbn } = await import("../src/searchByName");
+      const { validateUbigeo: vu } = await import("../src/validators");
+
+      expect(gd("150131")).toBe("San Isidro");
+      expect(gp("150131")).toBe("Lima");
+      expect(gdep("150131")).toBe("Lima");
+      expect(vu("150131")).toBe(true);
+      expect(sbn("San Isidro").length).toBeGreaterThan(0);
+    });
+  });
 });

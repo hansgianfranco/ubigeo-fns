@@ -1,6 +1,6 @@
 {
   "name": "ubigeo-fns",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Funciones utilitarias para trabajar con ubigeos del Perú en JavaScript y TypeScript.",
   "keywords": [
     "ubigeo",
@@ -31,11 +31,12 @@
     "url": "https://francocaballero.dev"
   },
   "type": "module",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "engines": {
-    "node": ">=18"
+    "node": ">=14"
   },
   "publishConfig": {
     "access": "public"
@@ -43,64 +44,76 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./getDistrict": {
       "types": "./dist/getDistrict/index.d.ts",
-      "import": "./dist/getDistrict/index.js"
+      "import": "./dist/getDistrict/index.js",
+      "require": "./dist/getDistrict/index.cjs"
     },
     "./getProvince": {
       "types": "./dist/getProvince/index.d.ts",
-      "import": "./dist/getProvince/index.js"
+      "import": "./dist/getProvince/index.js",
+      "require": "./dist/getProvince/index.cjs"
     },
     "./getDepartment": {
       "types": "./dist/getDepartment/index.d.ts",
-      "import": "./dist/getDepartment/index.js"
+      "import": "./dist/getDepartment/index.js",
+      "require": "./dist/getDepartment/index.cjs"
     },
     "./getDepartments": {
       "types": "./dist/getDepartments/index.d.ts",
-      "import": "./dist/getDepartments/index.js"
+      "import": "./dist/getDepartments/index.js",
+      "require": "./dist/getDepartments/index.cjs"
     },
     "./getProvinces": {
       "types": "./dist/getProvinces/index.d.ts",
-      "import": "./dist/getProvinces/index.js"
+      "import": "./dist/getProvinces/index.js",
+      "require": "./dist/getProvinces/index.cjs"
     },
     "./getDistricts": {
       "types": "./dist/getDistricts/index.d.ts",
-      "import": "./dist/getDistricts/index.js"
+      "import": "./dist/getDistricts/index.js",
+      "require": "./dist/getDistricts/index.cjs"
     },
     "./getUbigeoData": {
       "types": "./dist/getUbigeoData/index.d.ts",
-      "import": "./dist/getUbigeoData/index.js"
+      "import": "./dist/getUbigeoData/index.js",
+      "require": "./dist/getUbigeoData/index.cjs"
     },
     "./parseUbigeo": {
       "types": "./dist/parseUbigeo/index.d.ts",
-      "import": "./dist/parseUbigeo/index.js"
+      "import": "./dist/parseUbigeo/index.js",
+      "require": "./dist/parseUbigeo/index.cjs"
     },
     "./formatUbigeo": {
       "types": "./dist/formatUbigeo/index.d.ts",
-      "import": "./dist/formatUbigeo/index.js"
+      "import": "./dist/formatUbigeo/index.js",
+      "require": "./dist/formatUbigeo/index.cjs"
     },
     "./searchByName": {
       "types": "./dist/searchByName/index.d.ts",
-      "import": "./dist/searchByName/index.js"
+      "import": "./dist/searchByName/index.js",
+      "require": "./dist/searchByName/index.cjs"
     },
     "./validators": {
       "types": "./dist/validators/index.d.ts",
-      "import": "./dist/validators/index.js"
+      "import": "./dist/validators/index.js",
+      "require": "./dist/validators/index.cjs"
     }
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm --dts --minify",
+    "build": "tsup src/index.ts src/getDistrict/index.ts src/getProvince/index.ts src/getDepartment/index.ts src/getDepartments/index.ts src/getProvinces/index.ts src/getDistricts/index.ts src/getUbigeoData/index.ts src/parseUbigeo/index.ts src/formatUbigeo/index.ts src/searchByName/index.ts src/validators/index.ts --format esm,cjs --dts --minify --target node14",
     "dev": "tsc --watch",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
     "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
-    "lint": "eslint src --ext .ts",
-    "lint:fix": "eslint src --ext .ts --fix",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
